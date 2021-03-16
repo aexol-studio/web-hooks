@@ -4,12 +4,8 @@ import { useStoreText } from '@/hooks/useStoreText';
 import { MyStorage } from '@/__sandbox__/models';
 import { StoreTextTester } from '@/__sandbox__/StoreTextTester';
 
-const useMyStorageState = useStoredState(MyStorage);
-
 export const App = () => {
-    const [k1, setK1] = useMyStorageState(MyStorage.key1, {
-        message: 'Hello world 1',
-    });
+    const [k1, setK1] = useStoredState<{ message: string }>(MyStorage.key1);
     const [testStoreText, setStoreText] = useStoreText(MyStorage.key2, 'aaaaa');
     useEffect(() => {
         setTimeout(() => {
@@ -20,7 +16,7 @@ export const App = () => {
     return (
         <div>
             <div>useStoredState</div>
-            <div>{k1.message}</div>
+            <div>{k1?.message}</div>
             <div>useStoreText</div>
             <div>{testStoreText}</div>
             <StoreTextTester />
